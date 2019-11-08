@@ -1,0 +1,47 @@
+{
+  "name": "lying-lizards",
+  "version": "1.0.0",
+  "description": "A game to be played on computer and phone",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "gulp start",
+    "release": "gulp release"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Patrick Westervelt",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "electron": "^7.1.0",
+    "electron-builder": "^22.1.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-livereload": "^4.0.2"
+  },
+  "dependencies": {
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  },
+  "build": {
+    "appId": "com.karmadust.electrate",
+    "files": [
+      "app/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "publish": null
+  }
+}
