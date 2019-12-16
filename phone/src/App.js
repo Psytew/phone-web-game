@@ -11,49 +11,152 @@ class App extends React.Component {
     this.handleRoom = this.handleRoom.bind(this)
     this.handleText = this.handleText.bind(this)
     this.state = {
+        roomState: "beginning",
+        roundState: "",
         name: "",
         roomCode: "",
         text: "",
         inRoom: false,
+        // socket: io.connect('http://10.30.9.175:4009/'),
         socket: io.connect('http://localhost:4000'),
-        appSocketID: ""
+        appSocketID: "",
+        round1questions: [],
+        round2questions: [],
+        r1q1: "",
+        r1q2: "",
+        r2q1: "",
+        r2q2: ""
     }
   }
   render(){
-    if (!this.state.inRoom){
+    if (!this.state.inRoom && this.state.roomState === "beginning"){
       return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <form>
+        <div className="MainWrapper">
+          <form className="SubWrapper">
+            <div>
               <div>
-                <label>
+                <label className="IntroLabel">
                   Name
                 </label>
-                <input max="12" value={this.state.name} onChange={e => this.handleName(e)} type="text"></input>
               </div>
               <div>
-                <label>
+                <input className="IntroInput" max="12" value={this.state.name} onChange={e => this.handleName(e)} type="text"></input>
+              </div>
+            </div>
+            <div>
+              <div>
+                <label className="IntroLabel">
                   RoomCode
                 </label>
-                <input max="6" value={this.state.roomCode} onChange={e => this.handleRoom(e)} type="text"></input>
               </div>
-              <button onClick={e => this.joinRoom( e )} type="submit">Submit</button>
-            </form>
-          </header>
+              <div>
+                <input className="IntroInput" max="6" value={this.state.roomCode} onChange={e => this.handleRoom(e)} type="text"></input>
+              </div>
+            </div>
+            <div className="IntroButtonWrapper">
+              <button className="IntroButton" onClick={e => this.joinRoom( e )} type="submit">Play</button>
+            </div>
+          </form>
         </div>
       )
-    } else {
+    } else if (this.state.inRoom && this.state.roomState === "beginning") {
       return (
-        <div>
-          <p>You are now in room {this.state.roomCode}, {this.state.name}.</p>
-          <form>
-            <label>
-              What would you like to say?
-            </label>
-            <input max="100" value={this.state.text} onChange={e => this.handleText(e)} type="text"></input>
-            <button onClick={e => this.submitText( e )} type="submit">Submit</button>
-          </form>
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <p className="InformationalText">Press "Begin Game" on the computer once everyone is in.</p>
+          </div>
+        </div>
+      )
+    } else if (this.state.roomState === "idle"){
+      return (
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <p className="InformationalText">Please look at the screen!</p>
+          </div>
+        </div>
+      )
+    } else if (this.state.roomState === "round1" && this.state.roundState === "r1q1"){
+      return (
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <h1 className="PromptFill">Fill in the following prompt:</h1>
+            <form>
+              <label className="RoundPrompt"><p>{this.state.round1questions[0]}</p></label>
+              <div className="RoundInputContainer">
+                <input className="RoundInput" value={this.state.r1q1} onChange={e => this.handler1q1(e)} type="text"></input>
+              </div>
+              <div className="RoundButtonContainer">
+                <button className="RoundButton" onClick={e => this.submitr1q1( e )}>Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )
+    } else if (this.state.roomState === "round1" && this.state.roundState === "r1q2"){
+      return (
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <h1 className="PromptFill">Fill in the following prompt:</h1>
+            <form>
+              <label className="RoundPrompt"><p>{this.state.round1questions[1]}</p></label>
+              <div className="RoundInputContainer">
+                <input className="RoundInput" value={this.state.r1q2} onChange={e => this.handler1q2(e)} type="text"></input>
+              </div>
+              <div className="RoundButtonContainer">
+                <button className="RoundButton" onClick={e => this.submitr1q2( e )}>Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )
+    } else if (this.state.roomState === "round1" && this.state.roundState === "r1done"){
+      return (
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <p className="InformationalText">Now you just have to wait for everyone else to answer their questions.</p>
+          </div>
+        </div>
+      )
+    } else if (this.state.roomState === "round2" && this.state.roundState === "r2q1"){
+      return (
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <h1 className="PromptFill">Fill in the following prompt:</h1>
+            <form>
+              <label className="RoundPrompt"><p>{this.state.round2questions[0]}</p></label>
+              <div className="RoundInputContainer">
+                <input className="RoundInput" value={this.state.r2q1} onChange={e => this.handler2q1(e)} type="text"></input>
+              </div>
+              <div className="RoundButtonContainer">
+                <button className="RoundButton" onClick={e => this.submitr2q1( e )}>Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )
+    } else if (this.state.roomState === "round2" && this.state.roundState === "r2q2"){
+      return (
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <h1 className="PromptFill">Fill in the following prompt:</h1>
+            <form>
+              <label className="RoundPrompt"><p>{this.state.round2questions[1]}</p></label>
+              <div className="RoundInputContainer">
+                <input className="RoundInput" value={this.state.r2q2} onChange={e => this.handler2q2(e)} type="text"></input>
+              </div>
+              <div className="RoundButtonContainer">
+                <button className="RoundButton" onClick={e => this.submitr2q2( e )}>Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )
+    } else if (this.state.roomState === "round2" && this.state.roundState === "r2done"){
+      return (
+        <div className="MainWrapper">
+          <div className="SubWrapper">
+            <p className="InformationalText">Now you just have to wait for everyone else to answer their questions.</p>
+          </div>
         </div>
       )
     }
@@ -69,6 +172,10 @@ class App extends React.Component {
       socket.on('falseCode', function(){
         alert("Please make sure you have a valid roomcode.")
       })
+      //If the room is ful
+      socket.on('fullRoom', () => {
+        alert("Sorry, that room is full!")
+      })
       //If the room code is correct, set the state to be in the room
       socket.on('inRoom', () => {
         this.setState({inRoom:true})
@@ -83,6 +190,30 @@ class App extends React.Component {
           appSocketID: serverId
         })
       })
+
+      //Sets the phones to idle state
+      socket.on('setIdleState', () =>{
+        this.setState({
+          roomState: "idle"
+        })
+      })
+
+      socket.on('roundOneClient', (mess1, mess2) => {
+        this.setState({
+          roomState: "round1",
+          round1questions: [mess1, mess2],
+          roundState: "r1q1"
+        })
+      })
+
+      socket.on('roundTwoClient', (mess1, mess2) => {
+        this.setState({
+          roomState: "round2",
+          round2questions: [mess1, mess2],
+          roundState: "r2q1"
+        })
+      })
+
       //If there's no name, prompt for one
     } else if (this.state.name.length === 0){
       alert("Please input a name!")
@@ -114,6 +245,46 @@ class App extends React.Component {
     let { value, max } = event.target;
     value = value.substr(0,max)
     this.setState({text: value});
+  }
+  handler1q1(e) {
+    let value = e.target.value;
+    this.setState({r1q1: value})
+  }
+  handler1q2(e) {
+    let value = e.target.value;
+    this.setState({r1q2: value})
+  }
+  handler2q1(e) {
+    let value = e.target.value;
+    this.setState({r2q1: value})
+  }
+  handler2q2(e) {
+    let value = e.target.value;
+    this.setState({r2q2: value})
+  }
+  submitr1q1(e) {
+    e.preventDefault();
+    const socket = this.state.socket
+    this.setState({roundState: "r1q2"})
+    socket.emit('submitResponse1', this.state.appSocketID, this.state.socket.id, this.state.name, (this.state.round1questions[0] + this.state.r1q1), "r1q1")
+  }
+  submitr1q2(e) {
+    e.preventDefault();
+    const socket = this.state.socket
+    this.setState({roundState: "r1done"})
+    socket.emit('submitResponse1', this.state.appSocketID, this.state.socket.id, this.state.name, (this.state.round1questions[1] + this.state.r1q2), "r1q2")
+  }
+  submitr2q1(e) {
+    e.preventDefault();
+    const socket = this.state.socket
+    this.setState({roundState: "r2q2"})
+    socket.emit('submitResponse2', this.state.appSocketID, this.state.socket.id, this.state.name, (this.state.round1questions[0] + this.state.r2q1), "r2q1")
+  }
+  submitr2q2(e) {
+    e.preventDefault();
+    const socket = this.state.socket
+    this.setState({roundState: "r2done"})
+    socket.emit('submitResponse2', this.state.appSocketID, this.state.socket.id, this.state.name, (this.state.round1questions[1] + this.state.r2q2), "r2q2")
   }
 }
 

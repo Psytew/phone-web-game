@@ -19,8 +19,12 @@ gulp.task('js', () => { // 3.
          .pipe(babel())
          .pipe(gulp.dest('app/'));
 });
+gulp.task('images', () => {
+    return gulp.src('src/Elements/*.*')
+        .pipe(gulp.dest('app/images'))
+})
 // 4. Start the electron process.
-gulp.task('start', gulp.series('html', 'css', 'js', () => { // 4.
+gulp.task('start', gulp.series('html', 'css', 'images', 'js', () => { // 4.
     return exec(
         __dirname+'/node_modules/.bin/electron .'
     ).on('close', () => process.exit());
