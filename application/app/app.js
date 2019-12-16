@@ -59,6 +59,36 @@ var prompts = [{
 }, {
   intro: "On Christmas, ",
   meat: " got each other the worst gifts: "
+}, {
+  intro: "",
+  meat: " both get jobs working at a conveyor belt sushi restaurant, when "
+}, {
+  intro: "",
+  meat: " get paired in home ec class and have to take care of an egg baby together, but "
+}, {
+  intro: "",
+  meat: " go on a trip to Hawaii together, but everything goes wrong when "
+}, {
+  intro: "",
+  meat: " decide to launch a new business together: "
+}, {
+  intro: "",
+  meat: " absolutely refuse to talk to each other, and eventually everyone figures out it’s all because "
+}, {
+  intro: "When ",
+  meat: " are the finalists for the “Most Cool in the School Title,” the winner clearly ends up being "
+}, {
+  intro: "In a surprise twist, ",
+  meat: " turn out to have always secretly been "
+}, {
+  intro: "",
+  meat: " become locked in a race to "
+}, {
+  intro: "",
+  meat: " absolutely refuse to talk to each other, and eventually everyone figures out it’s all because "
+}, {
+  intro: "",
+  meat: " decide to go to town hall in order to protest the new "
 }];
 
 var App =
@@ -81,7 +111,7 @@ function (_React$Component) {
     _this.setCurrentSticks = _this.setCurrentSticks.bind(_assertThisInitialized(_this));
     _this.getId = _this.getId.bind(_assertThisInitialized(_this));
     _this.state = {
-      socket: _socket["default"].connect('http://localhost:4000/'),
+      socket: _socket["default"].connect('http://10.30.11.48:4009/'),
       roomCode: "",
       players: [],
       gameState: "lobby",
@@ -105,7 +135,7 @@ function (_React$Component) {
           id: "WelcomeGroup"
         }, _react["default"].createElement("h2", {
           className: "WelcomeIntro"
-        }, "Go to 10.30.9.175:3000/"), _react["default"].createElement("h2", {
+        }, "Go to http://10.30.11.48:3000/"), _react["default"].createElement("h2", {
           className: "WelcomeIntro"
         }, "ENTER ROOM CODE"), _react["default"].createElement("h1", {
           className: "WelcomeCode"

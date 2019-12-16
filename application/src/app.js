@@ -10,7 +10,17 @@ const prompts = [
     {intro: "At Burger King, ", meat: " got into a lot of trouble when "},
     {intro: "", meat: " had their friendship tested when: "},
     {intro: "", meat: " got into a huge fight when watching "},
-    {intro: "On Christmas, ", meat: " got each other the worst gifts: "}
+    {intro: "On Christmas, ", meat: " got each other the worst gifts: "},
+    {intro: "", meat: " both get jobs working at a conveyor belt sushi restaurant, when "},
+    {intro: "", meat: " get paired in home ec class and have to take care of an egg baby together, but "},
+    {intro: "", meat: " go on a trip to Hawaii together, but everything goes wrong when "},
+    {intro: "", meat: " decide to launch a new business together: "},
+    {intro: "", meat: " absolutely refuse to talk to each other, and eventually everyone figures out it’s all because "},
+    {intro: "When ", meat: " are the finalists for the “Most Cool in the School Title,” the winner clearly ends up being "},
+    {intro: "In a surprise twist, ", meat: " turn out to have always secretly been "},
+    {intro: "", meat: " become locked in a race to "},
+    {intro: "", meat: " absolutely refuse to talk to each other, and eventually everyone figures out it’s all because "},
+    {intro: "", meat: " decide to go to town hall in order to protest the new "}
 ]
 
 export default class App extends React.Component {
@@ -25,7 +35,7 @@ export default class App extends React.Component {
         this.setCurrentSticks = this.setCurrentSticks.bind(this);
         this.getId = this.getId.bind(this)
         this.state = {
-            socket: io.connect('http://localhost:4000/'),
+            socket: io.connect('http://10.30.11.48:4009/'),
             roomCode: "",
             players: [],
             gameState: "lobby",
@@ -44,7 +54,7 @@ export default class App extends React.Component {
             return(
                 <div>
                     <div id="WelcomeGroup">
-                        <h2 className="WelcomeIntro">Go to 10.30.9.175:3000/</h2>
+                        <h2 className="WelcomeIntro">Go to http://10.30.11.48:3000/</h2>
                         <h2 className="WelcomeIntro">ENTER ROOM CODE</h2>
                         <h1 className="WelcomeCode">{this.state.roomCode}</h1>
                     </div>

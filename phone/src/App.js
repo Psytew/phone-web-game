@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -9,7 +8,8 @@ class App extends React.Component {
     this.joinRoom = this.joinRoom.bind(this);
     this.handleName = this.handleName.bind(this)
     this.handleRoom = this.handleRoom.bind(this)
-    this.handleText = this.handleText.bind(this)
+    this.handleText = this.handleText.bind(this
+      )
     this.state = {
         roomState: "beginning",
         roundState: "",
@@ -17,8 +17,8 @@ class App extends React.Component {
         roomCode: "",
         text: "",
         inRoom: false,
-        // socket: io.connect('http://10.30.9.175:4009/'),
-        socket: io.connect('http://localhost:4000'),
+        socket: io.connect('http://10.30.11.48:4009/'),
+        // socket: io.connect('http://localhost:4000'),
         appSocketID: "",
         round1questions: [],
         round2questions: [],
